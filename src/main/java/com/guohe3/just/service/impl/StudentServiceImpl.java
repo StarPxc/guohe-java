@@ -41,23 +41,23 @@ public class StudentServiceImpl implements StudentService {
         List<Score> scoreList=trs.stream()
                 .map(tr->{
                     Score score=new Score();
-                    score.setOrder_num(tr.child(0).text());
-                    score.setStart_semester(tr.child(1).text());
-                    score.setCourse_num(tr.child(2).text());
-                    score.setCourse_name(tr.child(3).text());
+                    score.setOrderNum(tr.child(0).text());
+                    score.setStartSemester(tr.child(1).text());
+                    score.setCourseNum(tr.child(2).text());
+                    score.setCourseName(tr.child(3).text());
                     score.setScore(tr.child(4).text());
                     score.setCredit(tr.child(5).text());
-                    score.setTotal_hours(tr.child(6).text());
-                    score.setExamination_method(tr.child(7).text());
-                    score.setCourse_attribute(tr.child(8).text());
-                    score.setCourse_nature(tr.child(9).text());
-                    score.setAlternative_course_number(tr.child(10).text());
-                    score.setAlternative_course_name(tr.child(11).text());
-                    score.setMark_of_score(tr.child(12).text());
+                    score.setTotalHours(tr.child(6).text());
+                    score.setExaminationMethod(tr.child(7).text());
+                    score.setCourseAttribute(tr.child(8).text());
+                    score.setCourseNature(tr.child(9).text());
+                    score.setAlternativeCourseNumber(tr.child(10).text());
+                    score.setAlternativeCourseName(tr.child(11).text());
+                    score.setMarkOfScore(tr.child(12).text());
                     return score;
                 }).collect(Collectors.toList());
         System.out.println(result);
         System.out.println(scoreList);
-        return null;
+        return scoreList;
     }
 }
