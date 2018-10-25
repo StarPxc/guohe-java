@@ -26,37 +26,20 @@ public class Score {
      * total_hours : 48
      */
 
-    private String alternative_course_name;
-    private String alternative_course_number;
-    private String course_attribute;
-    private String course_name;
-    private String course_nature;
-    private String course_num;
+    private String alternativeCourseName;
+    private String alternativeCourseNumber;
+    private String courseAttribute;
+    private String courseName;
+    private String courseNature;
+    private String courseNum;
     private String credit;
-    private String examination_method;
-    private String mark_of_score;
-    private String order_num;
+    private String examinationMethod;
+    private String markOfScore;
+    private String orderNum;
     private String score;
-    private String start_semester;
-    private String total_hours;
+    private String startSemester;
+    private String totalHours;
 
-    @Override
-    public String toString() {
-        return "Score{" +
-                "alternative_course_name='" + alternative_course_name + '\'' +
-                ", alternative_course_number='" + alternative_course_number + '\'' +
-                ", course_attribute='" + course_attribute + '\'' +
-                ", course_name='" + course_name + '\'' +
-                ", course_nature='" + course_nature + '\'' +
-                ", course_num='" + course_num + '\'' +
-                ", credit='" + credit + '\'' +
-                ", examination_method='" + examination_method + '\'' +
-                ", mark_of_score='" + mark_of_score + '\'' +
-                ", order_num='" + order_num + '\'' +
-                ", score='" + score + '\'' +
-                ", start_semester='" + start_semester + '\'' +
-                ", total_hours='" + total_hours + '\'' +
-                '}';
-    }
+
 
 }
