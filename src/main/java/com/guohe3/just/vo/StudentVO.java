@@ -1,11 +1,14 @@
-package com.guohe3.just.DO;
+package com.guohe3.just.vo;
+
 
 import lombok.Data;
 
-
+/**
+ * @author 浦希成
+ * 2018/10/31
+ */
 @Data
-public class User {
-
+public class StudentVO {
 
     /**
      * 自增id
@@ -15,14 +18,10 @@ public class User {
      * 用户名
      */
     private String username;
-    /**
-     * 密码
-     */
-    private String password;
+
     /**
      * 昵称
      */
-
 
     private String nickname;
 
@@ -56,11 +55,7 @@ public class User {
      */
 
     private String authority;
-    /**
-     * 详情记录id
-     */
 
-    private Integer detailInfoId;
     /**
      * 手机号
      */
@@ -83,7 +78,33 @@ public class User {
     private String lastLogin;
 
 
+    /**
+     * 姓名
+     */
+    private String name;
+    /**
+     * 专业
+     */
+    private String major;
+    /**
+     * 学院
+     */
 
+    private String academy;
+    /**
+     * 班级号
+     */
 
+    private String classNum;
+    /**
+     * 组织
+     */
+
+    private String organization;
+    /**
+     * 出生日期
+     */
+
+    private String birthday;
 
 }

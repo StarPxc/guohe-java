@@ -21,5 +21,7 @@ public class Student {
 
     private String organization;
 
+    private String birthday;
+
 
 }

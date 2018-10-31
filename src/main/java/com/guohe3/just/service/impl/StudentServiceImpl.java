@@ -1,9 +1,12 @@
 package com.guohe3.just.service.impl;
 
 import com.guohe3.just.DO.Score;
+import com.guohe3.just.DO.Student;
+import com.guohe3.just.common.constants.Constants;
 import com.guohe3.just.common.enums.ResultEnum;
 import com.guohe3.just.common.execption.CustomException;
 import com.guohe3.just.craw.CrawService;
+import com.guohe3.just.mapper.StudentMapper;
 import com.guohe3.just.service.StudentService;
 import okhttp3.OkHttpClient;
 
@@ -26,14 +29,15 @@ import java.util.stream.Collectors;
 public class StudentServiceImpl implements StudentService {
     @Autowired
     private CrawService crawService;
-
+    @Autowired
+    private StudentMapper mapper;
     @Override
     public List<Score> getScoreAll(String username, String password) throws IOException {
         OkHttpClient client=crawService.justLoginNormal(username,password);
         if (client==null){
             throw new CustomException(ResultEnum.LOGIN_FAIL);
         }
-        String result=crawService.getScoreHtml(client);
+        String result=crawService.getScoreHtml(client, Constants.SCORE_NORMAL);
         Document doc= Jsoup.parse(result);
         Element table=doc.getElementById("dataList");
         Elements trs=table.select("tr");
@@ -59,5 +63,11 @@ public class StudentServiceImpl implements StudentService {
         System.out.println(result);
         System.out.println(scoreList);
         return scoreList;
+    }
+
+    @Override
+    public Integer addStudent(Student student) {
+        mapper.insertSelective(student);
+        return student.getId();
     }
 }

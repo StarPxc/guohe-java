@@ -1,7 +1,10 @@
 package com.guohe3.just.mapper;
 
 import com.guohe3.just.DO.Student;
+import com.guohe3.just.DO.User;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface StudentMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +17,5 @@ public interface StudentMapper {
     int updateByPrimaryKeySelective(Student record);
 
     int updateByPrimaryKey(Student record);
+    User findUser(String username,String password);
 }

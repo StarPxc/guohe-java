@@ -1,18 +1,13 @@
 package com.guohe3.just.controller;
 
-import com.guohe3.just.DO.User;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.guohe3.just.common.resp.ApiResult;
 import com.guohe3.just.common.utils.RestUtil;
 import com.guohe3.just.service.UserService;
-import com.guohe3.just.vo.QueryCondition;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
  * @author 浦希成 【pxc2955317305@outlook.com】

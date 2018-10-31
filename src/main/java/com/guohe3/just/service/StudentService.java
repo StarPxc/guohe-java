@@ -1,6 +1,7 @@
 package com.guohe3.just.service;
 
 import com.guohe3.just.DO.Score;
+import com.guohe3.just.DO.Student;
 
 import java.io.IOException;
 import java.util.List;
@@ -12,4 +13,6 @@ import java.util.List;
 public interface StudentService {
 
      List<Score> getScoreAll(String username, String password) throws IOException;
+
+     Integer addStudent(Student student);
 }

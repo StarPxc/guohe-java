@@ -1,212 +1,225 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.guohe3.just.mapper.UserMapper">
-  <resultMap id="BaseResultMap" type="com.guohe3.just.DO.User">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="username" jdbcType="VARCHAR" property="username" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="nickname" jdbcType="VARCHAR" property="nickname" />
-    <result column="birthday" jdbcType="VARCHAR" property="birthday" />
-    <result column="open_id_qq" jdbcType="VARCHAR" property="openIdQq" />
-    <result column="open_id_wx" jdbcType="VARCHAR" property="openIdWx" />
-    <result column="head_pic_qq" jdbcType="VARCHAR" property="headPicQq" />
-    <result column="head_pic_wx" jdbcType="VARCHAR" property="headPicWx" />
-    <result column="role" jdbcType="VARCHAR" property="role" />
-    <result column="authority" jdbcType="VARCHAR" property="authority" />
-    <result column="detail_info_id" jdbcType="INTEGER" property="detailInfoId" />
-    <result column="phone" jdbcType="VARCHAR" property="phone" />
-    <result column="last_login" jdbcType="VARCHAR" property="lastLogin" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.guohe3.just.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.guohe3.just.DO.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+    <result column="open_id_qq" property="openIdQq" jdbcType="VARCHAR" />
+    <result column="open_id_wx" property="openIdWx" jdbcType="VARCHAR" />
+    <result column="head_pic_qq" property="headPicQq" jdbcType="VARCHAR" />
+    <result column="head_pic_wx" property="headPicWx" jdbcType="VARCHAR" />
+    <result column="role" property="role" jdbcType="VARCHAR" />
+    <result column="authority" property="authority" jdbcType="VARCHAR" />
+    <result column="detail_info_id" property="detailInfoId" jdbcType="INTEGER" />
+    <result column="origin" property="origin" jdbcType="VARCHAR" />
+    <result column="native_place" property="nativePlace" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="last_login" property="lastLogin" jdbcType="VARCHAR" />
+
   </resultMap>
-  <sql id="Base_Column_List">
-    id, username, password, nickname, birthday, open_id_qq, open_id_wx, head_pic_qq,
-    head_pic_wx, role, authority, detail_info_id, phone, last_login, create_time, update_time
+  <sql id="Base_Column_List" >
+    id, username, password, nickname, open_id_qq, open_id_wx, head_pic_qq,
+    head_pic_wx, role, authority, detail_info_id, origin, native_place, phone, last_login
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select
     <include refid="Base_Column_List" />
     from user
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+
+  <select id="selectByUsernameAndPassword" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where username=#{0} and password=#{1}
+  </select>
+
+
+  <select id="selectUserByUsername" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from user
+    where username=#{username}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.guohe3.just.DO.User">
-    insert into user (id, username, password,
-      nickname, birthday, open_id_qq,
-      open_id_wx, head_pic_qq, head_pic_wx,
-      role, authority, detail_info_id,
-      phone, last_login, create_time,
-      update_time)
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
-      #{nickname,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR}, #{openIdQq,jdbcType=VARCHAR},
-      #{openIdWx,jdbcType=VARCHAR}, #{headPicQq,jdbcType=VARCHAR}, #{headPicWx,jdbcType=VARCHAR},
-      #{role,jdbcType=VARCHAR}, #{authority,jdbcType=VARCHAR}, #{detailInfoId,jdbcType=INTEGER},
-      #{phone,jdbcType=VARCHAR}, #{lastLogin,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
-      #{updateTime,jdbcType=TIMESTAMP})
+  <insert id="insert" parameterType="com.guohe3.just.DO.User" >
+    insert into user (id, username, password, 
+      nickname, open_id_qq,
+      open_id_wx, head_pic_qq, head_pic_wx, 
+      role, authority, detail_info_id, 
+      origin, native_place, phone, 
+      last_login
+      )
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{nickname,jdbcType=VARCHAR}, #{openIdQq,jdbcType=VARCHAR},
+      #{openIdWx,jdbcType=VARCHAR}, #{headPicQq,jdbcType=VARCHAR}, #{headPicWx,jdbcType=VARCHAR}, 
+      #{role,jdbcType=VARCHAR}, #{authority,jdbcType=VARCHAR}, #{detailInfoId,jdbcType=INTEGER}, 
+      #{origin,jdbcType=VARCHAR}, #{nativePlace,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{lastLogin,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.guohe3.just.DO.User">
+  <insert id="insertSelective" parameterType="com.guohe3.just.DO.User" >
     insert into user
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         id,
       </if>
-      <if test="username != null">
+      <if test="username != null" >
         username,
       </if>
-      <if test="password != null">
+      <if test="password != null" >
         password,
       </if>
-      <if test="nickname != null">
+      <if test="nickname != null" >
         nickname,
       </if>
-      <if test="birthday != null">
-        birthday,
-      </if>
-      <if test="openIdQq != null">
+
+      <if test="openIdQq != null" >
         open_id_qq,
       </if>
-      <if test="openIdWx != null">
+      <if test="openIdWx != null" >
         open_id_wx,
       </if>
-      <if test="headPicQq != null">
+      <if test="headPicQq != null" >
         head_pic_qq,
       </if>
-      <if test="headPicWx != null">
+      <if test="headPicWx != null" >
         head_pic_wx,
       </if>
-      <if test="role != null">
+      <if test="role != null" >
         role,
       </if>
-      <if test="authority != null">
+      <if test="authority != null" >
         authority,
       </if>
-      <if test="detailInfoId != null">
+      <if test="detailInfoId != null" >
         detail_info_id,
       </if>
-      <if test="phone != null">
+      <if test="origin != null" >
+        origin,
+      </if>
+      <if test="nativePlace != null" >
+        native_place,
+      </if>
+      <if test="phone != null" >
         phone,
       </if>
-      <if test="lastLogin != null">
+      <if test="lastLogin != null" >
         last_login,
       </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="updateTime != null">
-        update_time,
-      </if>
+
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="username != null">
+      <if test="username != null" >
         #{username,jdbcType=VARCHAR},
       </if>
-      <if test="password != null">
+      <if test="password != null" >
         #{password,jdbcType=VARCHAR},
       </if>
-      <if test="nickname != null">
+      <if test="nickname != null" >
         #{nickname,jdbcType=VARCHAR},
       </if>
-      <if test="birthday != null">
-        #{birthday,jdbcType=VARCHAR},
-      </if>
-      <if test="openIdQq != null">
+
+      <if test="openIdQq != null" >
         #{openIdQq,jdbcType=VARCHAR},
       </if>
-      <if test="openIdWx != null">
+      <if test="openIdWx != null" >
         #{openIdWx,jdbcType=VARCHAR},
       </if>
-      <if test="headPicQq != null">
+      <if test="headPicQq != null" >
         #{headPicQq,jdbcType=VARCHAR},
       </if>
-      <if test="headPicWx != null">
+      <if test="headPicWx != null" >
         #{headPicWx,jdbcType=VARCHAR},
       </if>
-      <if test="role != null">
+      <if test="role != null" >
         #{role,jdbcType=VARCHAR},
       </if>
-      <if test="authority != null">
+      <if test="authority != null" >
         #{authority,jdbcType=VARCHAR},
       </if>
-      <if test="detailInfoId != null">
+      <if test="detailInfoId != null" >
         #{detailInfoId,jdbcType=INTEGER},
       </if>
-      <if test="phone != null">
+      <if test="origin != null" >
+        #{origin,jdbcType=VARCHAR},
+      </if>
+      <if test="nativePlace != null" >
+        #{nativePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
         #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="lastLogin != null">
+      <if test="lastLogin != null" >
         #{lastLogin,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
-      </if>
+
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.guohe3.just.DO.User">
+  <update id="updateByPrimaryKeySelective" parameterType="com.guohe3.just.DO.User" >
     update user
-    <set>
-      <if test="username != null">
+    <set >
+      <if test="username != null" >
         username = #{username,jdbcType=VARCHAR},
       </if>
-      <if test="password != null">
+      <if test="password != null" >
         password = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="nickname != null">
+      <if test="nickname != null" >
         nickname = #{nickname,jdbcType=VARCHAR},
       </if>
-      <if test="birthday != null">
-        birthday = #{birthday,jdbcType=VARCHAR},
-      </if>
-      <if test="openIdQq != null">
+
+      <if test="openIdQq != null" >
         open_id_qq = #{openIdQq,jdbcType=VARCHAR},
       </if>
-      <if test="openIdWx != null">
+      <if test="openIdWx != null" >
         open_id_wx = #{openIdWx,jdbcType=VARCHAR},
       </if>
-      <if test="headPicQq != null">
+      <if test="headPicQq != null" >
         head_pic_qq = #{headPicQq,jdbcType=VARCHAR},
       </if>
-      <if test="headPicWx != null">
+      <if test="headPicWx != null" >
         head_pic_wx = #{headPicWx,jdbcType=VARCHAR},
       </if>
-      <if test="role != null">
+      <if test="role != null" >
         role = #{role,jdbcType=VARCHAR},
       </if>
-      <if test="authority != null">
+      <if test="authority != null" >
         authority = #{authority,jdbcType=VARCHAR},
       </if>
-      <if test="detailInfoId != null">
+      <if test="detailInfoId != null" >
         detail_info_id = #{detailInfoId,jdbcType=INTEGER},
       </if>
-      <if test="phone != null">
+      <if test="origin != null" >
+        origin = #{origin,jdbcType=VARCHAR},
+      </if>
+      <if test="nativePlace != null" >
+        native_place = #{nativePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
         phone = #{phone,jdbcType=VARCHAR},
       </if>
-      <if test="lastLogin != null">
+      <if test="lastLogin != null" >
         last_login = #{lastLogin,jdbcType=VARCHAR},
       </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
-      </if>
+
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.guohe3.just.DO.User">
+  <update id="updateByPrimaryKey" parameterType="com.guohe3.just.DO.User" >
     update user
     set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       nickname = #{nickname,jdbcType=VARCHAR},
-      birthday = #{birthday,jdbcType=VARCHAR},
       open_id_qq = #{openIdQq,jdbcType=VARCHAR},
       open_id_wx = #{openIdWx,jdbcType=VARCHAR},
       head_pic_qq = #{headPicQq,jdbcType=VARCHAR},
@@ -214,13 +227,11 @@
       role = #{role,jdbcType=VARCHAR},
       authority = #{authority,jdbcType=VARCHAR},
       detail_info_id = #{detailInfoId,jdbcType=INTEGER},
+      origin = #{origin,jdbcType=VARCHAR},
+      native_place = #{nativePlace,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       last_login = #{lastLogin,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+
     where id = #{id,jdbcType=INTEGER}
   </update>
-
-
-
 </mapper>

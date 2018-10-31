@@ -20,11 +20,12 @@ import org.springframework.web.multipart.MultipartException;
  */
 @ControllerAdvice
 @Slf4j
-public class ExecptionHandle {
+public class ExceptionHandle {
     @ExceptionHandler(value = Exception.class)
     @ResponseBody
     public ApiResult handle(Exception e) {
-        if (e instanceof CustomException) {//如果是自定义异常
+        //如果是自定义异常
+        if (e instanceof CustomException) {
             CustomException CustomException = (CustomException) e;
             log.error(CustomException.getMessage());
             return RestUtil.error(CustomException.getCode(), CustomException.getMessage());

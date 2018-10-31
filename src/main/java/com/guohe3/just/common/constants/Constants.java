@@ -15,6 +15,10 @@ public class Constants {
      */
     public static final String LOGIN_TO_JWGL_VPN="https://vpn.just.edu.cn/jsxsd/xk/,DanaInfo=jwgl.just.edu.cn,Port=8080+LoginToXk";
     /**
+     * 学生信息(非vpn)
+     */
+    public static final String STUDENT_INFO="http://jwgl.just.edu.cn:8080/jsxsd/grxx/xsxx?Ves632DSdyV=NEW_XSD_XJCJ";
+    /**
      * vpn账号登录路径
      */
     public static final String LOGIN_TO_VPN="https://vpn.just.edu.cn/dana-na/auth/url_default/login.cgi";

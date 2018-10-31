@@ -1,5 +1,6 @@
 package com.guohe3.just.craw;
 
+import com.guohe3.just.DO.Student;
 import okhttp3.OkHttpClient;
 
 import java.io.IOException;
@@ -27,10 +28,18 @@ public interface CrawService {
      OkHttpClient justLoginNormal(String username, String password) throws IOException;
 
      /**
-      * 获取成绩页面
+      * 登录成功后根据url获取相关页面
+      * @param client OkHttpClient
+      * @param url url
+      * @return html页面字符串
+      * @throws IOException
+      */
+     String getScoreHtml(OkHttpClient client,String url) throws IOException;
+     /**
+      * 获取学生信息页面
       * @param client 登陆后的OkHttpClient
       * @return html字符串
       *
       */
-     String getScoreHtml(OkHttpClient client) throws IOException;
+     Student getStudentInfo(OkHttpClient client) throws IOException;
 }
