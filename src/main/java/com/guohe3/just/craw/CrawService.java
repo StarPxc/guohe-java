@@ -37,9 +37,17 @@ public interface CrawService {
      String getScoreHtml(OkHttpClient client,String url) throws IOException;
      /**
       * 获取学生信息页面
-      * @param client 登陆后的OkHttpClient
-      * @return html字符串
+      * @param html html字符串
+      * @return Student
       *
       */
-     Student getStudentInfo(OkHttpClient client) throws IOException;
+     Student getStudentInfo(String html);
+
+     /**
+      * 登录教务处,默认先从justLoginNormal，失败再去调用justLoginVpn
+      * @param username 教务系统用户名
+      * @param password 教务系统密码
+      * @return OkHttpClient
+      */
+     OkHttpClient login(String username,String password) throws IOException;
 }

@@ -40,7 +40,9 @@ public enum ResultEnum {
     SUBMITHOMWORK_FIND_NULL(522, "作业提交记录不存在"),
     NO_SELECT_COURSE(523, "未选择课程"),
     REQUEST_ERROR(524,"查询失败"),
-    JWC_ACCOUNT_ERROR(525,"教务处用户名或者密码错误");
+    JWC_ACCOUNT_ERROR(525,"教务处用户名或者密码错误"),
+    INVALID_CLIENT(526,"教务处请求以失效")
+            ;
     private Integer code;
     private String msg;
 

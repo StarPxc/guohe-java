@@ -5,9 +5,12 @@ import com.guohe3.just.DO.Student;
 import com.guohe3.just.common.constants.Constants;
 import com.guohe3.just.common.enums.ResultEnum;
 import com.guohe3.just.common.execption.CustomException;
+import com.guohe3.just.common.utils.ClientUtil;
 import com.guohe3.just.craw.CrawService;
 import com.guohe3.just.mapper.StudentMapper;
 import com.guohe3.just.service.StudentService;
+import com.sun.xml.internal.bind.v2.TODO;
+import javafx.application.Application;
 import okhttp3.OkHttpClient;
 
 import org.jsoup.Jsoup;
@@ -15,6 +18,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -27,12 +31,21 @@ import java.util.stream.Collectors;
  */
 @Service
 public class StudentServiceImpl implements StudentService {
+
     @Autowired
     private CrawService crawService;
     @Autowired
     private StudentMapper mapper;
+    @Autowired
+    private ClientUtil clientUtil;
+
     @Override
     public List<Score> getScoreAll(String username, String password) throws IOException {
+        /**
+         *  TODO OkHttpClient client= clientUtil.getClient(username);
+         *  从缓存中获取教务处登录成功的OkHttpClient
+         */
+        //重新登录
         OkHttpClient client=crawService.justLoginNormal(username,password);
         if (client==null){
             throw new CustomException(ResultEnum.LOGIN_FAIL);

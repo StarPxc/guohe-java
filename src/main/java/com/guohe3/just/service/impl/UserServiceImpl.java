@@ -4,7 +4,6 @@ import com.guohe3.just.DO.Student;
 import com.guohe3.just.DO.User;
 import com.guohe3.just.common.enums.ResultEnum;
 import com.guohe3.just.common.execption.CustomException;
-import com.guohe3.just.craw.CrawService;
 import com.guohe3.just.mapper.StudentMapper;
 import com.guohe3.just.mapper.UserMapper;
 import com.guohe3.just.service.UserService;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.guohe3.just.vo.StudentVO;
 
-import java.io.IOException;
 
 /**
  * @author 浦希成 【pxc2955317305@outlook.com】
@@ -23,24 +21,12 @@ import java.io.IOException;
 public class UserServiceImpl implements UserService {
 
 
-    @Autowired
-    private CrawService crawService;
 
     @Autowired
     private UserMapper userMapper;
     @Autowired
     private StudentMapper studentMapper;
-    @Override
-    public UserVO loginViaVpn(String username, String password) throws IOException {
-        crawService.justLoginVpn(username,password);
-        return null;
-    }
 
-    @Override
-    public UserVO loginViaNormal(String username, String password) throws IOException {
-        crawService.justLoginNormal(username,password);
-        return null;
-    }
 
     @Override
     public User findUser(String username, String password) {

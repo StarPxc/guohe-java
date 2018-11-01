@@ -22,12 +22,5 @@ public class UserController {
     private UserService userService;
 
 
-    @PostMapping("vpn")
-    public ApiResult loginViaVpn(@RequestParam String username,@RequestParam String password) throws IOException {
-        return RestUtil.success("查询成功",userService.loginViaVpn(username,password));
-    }
-    @PostMapping("normal")
-    public ApiResult loginViaNormal(@RequestParam String username,@RequestParam String password) throws IOException {
-        return RestUtil.success("查询成功",userService.loginViaNormal(username,password));
-    }
+
 }

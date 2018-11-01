@@ -2,6 +2,7 @@ package com.guohe3.just.security.filter;
 
 import com.guohe3.just.DO.Student;
 import com.guohe3.just.DO.User;
+import com.guohe3.just.common.constants.Constants;
 import com.guohe3.just.common.enums.ResultEnum;
 import com.guohe3.just.common.utils.RestUtil;
 import com.guohe3.just.craw.CrawService;
@@ -11,6 +12,7 @@ import okhttp3.OkHttpClient;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.filter.GenericFilterBean;
+
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -42,9 +44,10 @@ public class LoginJUSTFilter extends GenericFilterBean {
 
         HttpServletRequest r = (HttpServletRequest) request;
 
-        if(!"/loginProcess".equalsIgnoreCase(r.getRequestURI())){
+
+        if (!"/loginProcess".equalsIgnoreCase(r.getRequestURI())) {
             chain.doFilter(request, response);
-        }else {
+        } else {
             String username = r.getParameter("username");
             String password = r.getParameter("password");
             User user = userService.findUser(username, password);
@@ -53,7 +56,7 @@ public class LoginJUSTFilter extends GenericFilterBean {
                 chain.doFilter(request, response);
             } else {
                 System.out.println("第一次登录");
-                OkHttpClient client = crawService.justLoginNormal(username, password);
+                OkHttpClient client = crawService.login(username, password);
                 //登录教务处失败
                 if (client == null) {
                     response.setCharacterEncoding("utf-8");
@@ -62,8 +65,8 @@ public class LoginJUSTFilter extends GenericFilterBean {
                                     ResultEnum.JWC_ACCOUNT_ERROR.getMsg())));
                 } else {
 
-
-                    Student student = crawService.getStudentInfo(client);
+                    //从教务处获取学生信息
+                    Student student = crawService.getStudentInfo(crawService.getScoreHtml(client, Constants.STUDENT_INFO));
                     student.setUsername(username);
                     student.setPassword(password);
                     Integer id = studentService.addStudent(student);
@@ -75,15 +78,16 @@ public class LoginJUSTFilter extends GenericFilterBean {
                         user.setDetailInfoId(id);
                         userService.addUser(user);
                         System.out.println("登录成功");
+                        //保存教务处的登录状态
+
                         chain.doFilter(request, response);
                     } else {
-                        //TODO 让事务回滚
+                        //TODO 让事务回滚 保证关联对象同时插入
                         response.setCharacterEncoding("utf-8");
                         response.getWriter().write(objectMapper.writeValueAsString(
                                 RestUtil.error(ResultEnum.UNKONW_ERROR.getCode(),
                                         ResultEnum.UNKONW_ERROR.getMsg())));
                     }
-
 
 
                 }

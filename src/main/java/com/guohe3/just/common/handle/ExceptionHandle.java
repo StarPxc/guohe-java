@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartException;
  * @author Ethanp
  * @version V1.0
  * @Package com.db.fiftysql.common.execption
- * @Description: TODO 全局的异常处理
+ * @Description:  全局的异常处理
  * @date 2018/1/29 10:10
  */
 @ControllerAdvice

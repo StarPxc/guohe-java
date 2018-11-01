@@ -15,9 +15,6 @@ import java.io.IOException;
 public interface UserService {
 
 
-    UserVO loginViaVpn(String username, String password) throws IOException;
-
-    UserVO loginViaNormal(String username, String password) throws IOException;
 
 
     User findUser(String username, String password);
