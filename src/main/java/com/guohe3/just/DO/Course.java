@@ -38,6 +38,10 @@ public class Course {
      * 学年
      */
     private String semester;
+    /**
+     * 学生id
+     */
+    private Integer studentId;
 
 
 

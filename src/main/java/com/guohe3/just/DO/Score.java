@@ -39,7 +39,7 @@ public class Score {
     private String score;
     private String startSemester;
     private String totalHours;
-    private Integer userId;
+    private Integer studentId;
 
 
 
