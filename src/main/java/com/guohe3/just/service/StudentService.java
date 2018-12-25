@@ -12,7 +12,7 @@ import java.util.List;
  */
 public interface StudentService {
 
-     List<Score> getScoreAll(String username, String password) throws IOException;
+    List<Score> getScoreAll(String username, String password) throws IOException;
 
-     Integer addStudent(Student student);
+    Integer addStudent(Student student);
 }

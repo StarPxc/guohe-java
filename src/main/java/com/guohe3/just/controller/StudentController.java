@@ -21,10 +21,11 @@ import java.io.IOException;
 public class StudentController {
     @Autowired
     private StudentService studentService;
+
     @GetMapping("getScoreAll")
     public ApiResult getScoreAll(Authentication authentication) throws IOException {
-        GuoHeUserDetailsImpl userDetails= (GuoHeUserDetailsImpl) authentication.getPrincipal();
-        return RestUtil.success("查询成功",studentService.getScoreAll(userDetails.getUsername(),userDetails.getPassword()));
+        GuoHeUserDetailsImpl userDetails = (GuoHeUserDetailsImpl) authentication.getPrincipal();
+        return RestUtil.success("查询成功", studentService.getScoreAll(userDetails.getUsername(), userDetails.getPassword()));
     }
 
 }

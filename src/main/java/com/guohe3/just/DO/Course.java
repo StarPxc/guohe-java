@@ -44,6 +44,4 @@ public class Course {
     private Integer studentId;
 
 
-
-
 }

@@ -83,7 +83,4 @@ public class User {
     private String lastLogin;
 
 
-
-
-
 }

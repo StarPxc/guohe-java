@@ -28,9 +28,9 @@ public class LoginController {
 
     private RequestCache requestCache = new HttpSessionRequestCache();
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+
     /**
      * 当身份认证时跳转到这里
-
      */
     @RequestMapping("/authentication/require")
     @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
@@ -45,7 +45,7 @@ public class LoginController {
                 redirectStrategy.sendRedirect(request, response, "/login.html");
             }
         }
-        return RestUtil.error(ResultEnum.UNAUTHORIZED.getCode(),ResultEnum.UNAUTHORIZED.getMsg());
+        return RestUtil.error(ResultEnum.UNAUTHORIZED.getCode(), ResultEnum.UNAUTHORIZED.getMsg());
 
     }
 }

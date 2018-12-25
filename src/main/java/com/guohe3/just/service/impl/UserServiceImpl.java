@@ -21,7 +21,6 @@ import com.guohe3.just.vo.StudentVO;
 public class UserServiceImpl implements UserService {
 
 
-
     @Autowired
     private UserMapper userMapper;
     @Autowired
@@ -30,7 +29,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUser(String username, String password) {
-        return userMapper.selectByUsernameAndPassword(username,password);
+        return userMapper.selectByUsernameAndPassword(username, password);
     }
 
     @Override
@@ -45,18 +44,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public StudentVO findUserByUsernameDetail(String s) {
-        User user=userMapper.selectUserByUsername(s);
-        if (user==null){
+        User user = userMapper.selectUserByUsername(s);
+        if (user == null) {
             throw new CustomException(ResultEnum.NO_USER);
         }
-        StudentVO studentVO=new StudentVO();
+        StudentVO studentVO = new StudentVO();
 
-        Student student=studentMapper.selectByPrimaryKey(user.getDetailInfoId());
-        if (student==null){
+        Student student = studentMapper.selectByPrimaryKey(user.getDetailInfoId());
+        if (student == null) {
             throw new CustomException(ResultEnum.NO_USER);
         }
-        BeanUtils.copyProperties(user,studentVO);
-        BeanUtils.copyProperties(student,studentVO);
+        BeanUtils.copyProperties(user, studentVO);
+        BeanUtils.copyProperties(student, studentVO);
 
 
         return studentVO;

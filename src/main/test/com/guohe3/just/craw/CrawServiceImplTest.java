@@ -16,8 +16,8 @@ import java.io.IOException;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class CrawServiceImplTest {
-    public static final String USERNAME="152210702119";
-    public static final String PASSWORD="935377012pxc";
+    public static final String USERNAME = "152210702119";
+    public static final String PASSWORD = "935377012pxc";
     @Autowired
     private CrawService crawService;
 

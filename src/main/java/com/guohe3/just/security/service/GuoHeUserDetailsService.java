@@ -18,13 +18,14 @@ public class GuoHeUserDetailsService implements UserDetailsService {
 
     @Autowired
     private UserService userService;
+
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        User user=userService.findUserByUsername(s);
+        User user = userService.findUserByUsername(s);
         if (user == null) {
             throw new UsernameNotFoundException("用户不存在");
         }
-        GuoHeUserDetailsImpl userDetails=new GuoHeUserDetailsImpl();
+        GuoHeUserDetailsImpl userDetails = new GuoHeUserDetailsImpl();
         userDetails.setUsername(user.getUsername());
         userDetails.setPassword(user.getPassword());
         return userDetails;

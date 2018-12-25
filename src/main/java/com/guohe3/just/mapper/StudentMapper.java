@@ -17,5 +17,6 @@ public interface StudentMapper {
     int updateByPrimaryKeySelective(Student record);
 
     int updateByPrimaryKey(Student record);
-    User findUser(String username,String password);
+
+    User findUser(String username, String password);
 }

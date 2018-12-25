@@ -33,10 +33,11 @@ public class GuoheSecurityConfig extends WebSecurityConfigurerAdapter {
     private CrawService crawService;
     @Autowired
     private StudentService studentService;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.addFilterBefore(new LoginJUSTFilter(userService,crawService,studentService),UsernamePasswordAuthenticationFilter.class)
+        http.addFilterBefore(new LoginJUSTFilter(userService, crawService, studentService), UsernamePasswordAuthenticationFilter.class)
 
                 .csrf().disable()
                 .formLogin()
@@ -46,15 +47,12 @@ public class GuoheSecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(guoHeAuthenticationFailureHandler)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/authentication/require","/loginProcess","/login.html")
+                .antMatchers("loginProcess", "/authentication/require", "/loginProcess", "/login.html")
                 .permitAll()
                 .anyRequest()
                 .authenticated();
 
     }
-
-
-
 
 
 }

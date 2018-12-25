@@ -46,18 +46,18 @@ public class StudentServiceImpl implements StudentService {
          *  从缓存中获取教务处登录成功的OkHttpClient
          */
         //重新登录
-        OkHttpClient client=crawService.justLoginNormal(username,password);
-        if (client==null){
+        OkHttpClient client = crawService.justLoginNormal(username, password);
+        if (client == null) {
             throw new CustomException(ResultEnum.LOGIN_FAIL);
         }
-        String result=crawService.getScoreHtml(client, Constants.SCORE_NORMAL);
-        Document doc= Jsoup.parse(result);
-        Element table=doc.getElementById("dataList");
-        Elements trs=table.select("tr");
+        String result = crawService.getScoreHtml(client, Constants.SCORE_NORMAL);
+        Document doc = Jsoup.parse(result);
+        Element table = doc.getElementById("dataList");
+        Elements trs = table.select("tr");
         trs.remove(0);
-        List<Score> scoreList=trs.stream()
-                .map(tr->{
-                    Score score=new Score();
+        List<Score> scoreList = trs.stream()
+                .map(tr -> {
+                    Score score = new Score();
                     score.setOrderNum(tr.child(0).text());
                     score.setStartSemester(tr.child(1).text());
                     score.setCourseNum(tr.child(2).text());

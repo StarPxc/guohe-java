@@ -14,7 +14,7 @@ import java.util.Collection;
 public class GuoHeUserDetailsImpl extends User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (getAuthority()==null){
+        if (getAuthority() == null) {
             return null;
         }
 

@@ -11,7 +11,8 @@
             <property name="suppressAllComments" value="true"/>
         </commentGenerator>
 
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost/guohe?characterEncoding=utf8&amp;useSSL=true"
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost/guohe?characterEncoding=utf8&amp;useSSL=true"
                         userId="root" password="935377012">
         </jdbcConnection>
         <javaTypeResolver>

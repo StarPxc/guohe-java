@@ -15,12 +15,11 @@ import java.io.IOException;
 public interface UserService {
 
 
-
-
     User findUser(String username, String password);
 
     void addUser(User user);
 
     StudentVO findUserByUsernameDetail(String s);
+
     User findUserByUsername(String s);
 }

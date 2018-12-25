@@ -22,17 +22,18 @@ import java.io.IOException;
 public class GuoHeAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
 
-    private ObjectMapper objectMapper=new ObjectMapper();
-    String type="json";
+    private ObjectMapper objectMapper = new ObjectMapper();
+    String type = "json";
+
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
 
-        if ("json".equals(type)){
+        if ("json".equals(type)) {
             response.setContentType("application/json;charset=UTF-8");
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-            response.getWriter().write(objectMapper.writeValueAsString(RestUtil.error(500,exception.getMessage())));
-        }else {
-            super.onAuthenticationFailure(request,response,exception);
+            response.getWriter().write(objectMapper.writeValueAsString(RestUtil.error(500, exception.getMessage())));
+        } else {
+            super.onAuthenticationFailure(request, response, exception);
         }
 
     }

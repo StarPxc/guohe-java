@@ -9,7 +9,7 @@ public enum ResultEnum {
     /**
      * 结果返回状态
      */
-    UNAUTHORIZED(401,"Unauthorized"),
+    UNAUTHORIZED(401, "Unauthorized"),
     UNKONW_ERROR(500, "未知错误"),
     SUCCSEE(200, "成功"),
 
@@ -39,10 +39,9 @@ public enum ResultEnum {
     HOMEWORK_IS_END(521, "已截止提交"),
     SUBMITHOMWORK_FIND_NULL(522, "作业提交记录不存在"),
     NO_SELECT_COURSE(523, "未选择课程"),
-    REQUEST_ERROR(524,"查询失败"),
-    JWC_ACCOUNT_ERROR(525,"教务处用户名或者密码错误"),
-    INVALID_CLIENT(526,"教务处请求以失效")
-            ;
+    REQUEST_ERROR(524, "查询失败"),
+    JWC_ACCOUNT_ERROR(525, "教务处用户名或者密码错误"),
+    INVALID_CLIENT(526, "教务处请求以失效");
     private Integer code;
     private String msg;
 

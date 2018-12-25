@@ -51,8 +51,10 @@ public class CrawServiceImpl implements CrawService {
             })
             .build();
 
+
+
     @Override
-    public OkHttpClient justLoginVpn(String username, String password) throws IOException {
+    public OkHttpClient justLoginVpn(String username, String password){
         System.out.println("进行vpn登录");
         return null;
 

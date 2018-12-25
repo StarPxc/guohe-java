@@ -7,11 +7,11 @@ spring:
     host: 127.0.0.1
     port: 6379
   jpa:
-      hibernate:
-        ddl-auto: update
-      database: mysql
-      show-sql: true
-      generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    database: mysql
+    show-sql: true
+    generate-ddl: true
   http:
     multipart:
       max-file-size: 200Mb
@@ -19,8 +19,8 @@ spring:
   profiles:
     active: dev
   datasource:
-      type: com.alibaba.druid.pool.DruidDataSource
-      driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
 mybatis:
   mapper-locations: classpath:com/guohe3/just/mapper/**.xml
   type-aliases-package: classpath:com.guohe3.just.DO

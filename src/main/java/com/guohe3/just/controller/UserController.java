@@ -12,7 +12,6 @@ import java.io.IOException;
 /**
  * @author 浦希成 【pxc2955317305@outlook.com】
  * @date 2018/6/10  12:16
-
  */
 @RestController
 @RequestMapping("/user")
@@ -20,7 +19,6 @@ import java.io.IOException;
 public class UserController {
     @Autowired
     private UserService userService;
-
 
 
 }
