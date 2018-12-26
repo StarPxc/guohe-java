@@ -36,26 +36,23 @@ public class StudentServiceImpl implements StudentService {
     private CrawService crawService;
     @Autowired
     private StudentMapper mapper;
-    @Autowired
-    private ClientUtil clientUtil;
 
     @Override
     public List<Score> getScoreAll(String username, String password) throws IOException {
-        /**
-         *  TODO OkHttpClient client= clientUtil.getClient(username);
-         *  从缓存中获取教务处登录成功的OkHttpClient
-         */
         //重新登录
-        OkHttpClient client = crawService.justLoginNormal(username, password);
+        OkHttpClient client = crawService.login(username, password);
         if (client == null) {
             throw new CustomException(ResultEnum.LOGIN_FAIL);
         }
         String result = crawService.getScoreHtml(client, Constants.SCORE_NORMAL);
         Document doc = Jsoup.parse(result);
         Element table = doc.getElementById("dataList");
+        if (table==null){
+            throw new CustomException(ResultEnum.NOT_EVALUATED);
+        }
         Elements trs = table.select("tr");
         trs.remove(0);
-        List<Score> scoreList = trs.stream()
+        return trs.stream()
                 .map(tr -> {
                     Score score = new Score();
                     score.setOrderNum(tr.child(0).text());
@@ -73,9 +70,6 @@ public class StudentServiceImpl implements StudentService {
                     score.setMarkOfScore(tr.child(12).text());
                     return score;
                 }).collect(Collectors.toList());
-        System.out.println(result);
-        System.out.println(scoreList);
-        return scoreList;
     }
 
     @Override

@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class PerformanceMonitor {
-    @Pointcut("execution(public * test.springboot.*.controller..*(..))")
+    @Pointcut("execution(public * com.guohe3.just.controller..*(..))")
     private void controllerLayer() {
     }
 

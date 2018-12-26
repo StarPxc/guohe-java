@@ -6,7 +6,6 @@ import lombok.Data;
 @Data
 public class User {
 
-
     /**
      * 自增id
      */
@@ -22,7 +21,6 @@ public class User {
     /**
      * 昵称
      */
-
 
     private String nickname;
 

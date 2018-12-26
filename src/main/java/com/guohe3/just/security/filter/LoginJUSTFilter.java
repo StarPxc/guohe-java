@@ -8,6 +8,7 @@ import com.guohe3.just.common.utils.RestUtil;
 import com.guohe3.just.craw.CrawService;
 import com.guohe3.just.service.StudentService;
 import com.guohe3.just.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.OkHttpClient;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +24,7 @@ import java.time.LocalDateTime;
  * 2018/10/28
  * 判断用户是否存在，如果不存在先去教务系统模拟登陆
  */
-
+@Slf4j
 public class LoginJUSTFilter extends GenericFilterBean {
 
     private UserService userService;
@@ -55,7 +56,7 @@ public class LoginJUSTFilter extends GenericFilterBean {
             if (user != null) {
                 chain.doFilter(request, response);
             } else {
-                System.out.println("第一次登录");
+                log.info("{} 第一次登录", username);
                 OkHttpClient client = crawService.login(username, password);
                 //登录教务处失败
                 if (client == null) {
@@ -77,12 +78,8 @@ public class LoginJUSTFilter extends GenericFilterBean {
                         user.setLastLogin(LocalDateTime.now().toString());
                         user.setDetailInfoId(id);
                         userService.addUser(user);
-                        System.out.println("登录成功");
-                        //保存教务处的登录状态
-
                         chain.doFilter(request, response);
                     } else {
-                        //TODO 让事务回滚 保证关联对象同时插入
                         response.setCharacterEncoding("utf-8");
                         response.getWriter().write(objectMapper.writeValueAsString(
                                 RestUtil.error(ResultEnum.UNKONW_ERROR.getCode(),

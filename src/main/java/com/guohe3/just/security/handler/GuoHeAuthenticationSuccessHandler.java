@@ -2,8 +2,6 @@ package com.guohe3.just.security.handler;
 
 import com.guohe3.just.common.utils.RestUtil;
 import com.guohe3.just.service.UserService;
-import imooc.security.core.properties.LoginType;
-import imooc.security.core.properties.SecurityProperties;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

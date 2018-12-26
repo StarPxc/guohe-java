@@ -30,10 +30,10 @@ import java.util.concurrent.TimeUnit;
  * @date 2018/6/4  22:17
  */
 @Service
-public class CrawServiceImpl implements CrawService {
+public class NormalCrawServiceImpl implements CrawService {
 
     private OkHttpClient client = new OkHttpClient.Builder()
-            .connectTimeout(5, TimeUnit.SECONDS)
+            .connectTimeout(10, TimeUnit.SECONDS)
             //管理cookie
             .cookieJar(new CookieJar() {
                 private final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
@@ -52,16 +52,8 @@ public class CrawServiceImpl implements CrawService {
             .build();
 
 
-
     @Override
-    public OkHttpClient justLoginVpn(String username, String password){
-        System.out.println("进行vpn登录");
-        return null;
-
-    }
-
-    @Override
-    public OkHttpClient justLoginNormal(String username, String password) throws IOException {
+    public OkHttpClient login(String username, String password) throws IOException {
 
         if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
             throw new CustomException(ResultEnum.OBJECT_NULL_ERROR);
@@ -83,7 +75,6 @@ public class CrawServiceImpl implements CrawService {
                 String result = response.body().string();
                 //login success
                 if (result.contains("我的桌面")) {
-                    //TODO 保存教务处登录成功后的OkHttpClient
                     return client;
                 } else {
                     throw new CustomException(ResultEnum.JWC_ACCOUNT_ERROR);
@@ -92,7 +83,6 @@ public class CrawServiceImpl implements CrawService {
         } catch (SocketTimeoutException | UnknownHostException e) {
             return null;
         }
-
 
         return null;
 
@@ -133,21 +123,6 @@ public class CrawServiceImpl implements CrawService {
 
 
         return student;
-    }
-
-    @Override
-    public OkHttpClient login(String username, String password) throws IOException {
-
-        //先使用普通当时登录
-        OkHttpClient client = justLoginNormal(username, password);
-        if (client == null) {
-            System.out.println("教务系统又炸了，，试试vpn方式登录");
-            client = justLoginVpn(username, password);
-            return client;
-        }
-        return client;
-
-
     }
 
 
