@@ -2,7 +2,6 @@ package com.guohe3.just.security.filter;
 
 import com.guohe3.just.DO.Student;
 import com.guohe3.just.DO.User;
-import com.guohe3.just.common.constants.Constants;
 import com.guohe3.just.common.enums.ResultEnum;
 import com.guohe3.just.common.utils.RestUtil;
 import com.guohe3.just.craw.CrawService;
@@ -65,9 +64,8 @@ public class LoginJUSTFilter extends GenericFilterBean {
                             RestUtil.error(ResultEnum.JWC_ACCOUNT_ERROR.getCode(),
                                     ResultEnum.JWC_ACCOUNT_ERROR.getMsg())));
                 } else {
-
                     //从教务处获取学生信息
-                    Student student = crawService.getStudentInfo(crawService.getScoreHtml(client, Constants.STUDENT_INFO));
+                    Student student = studentService.getStudentInfo(username, password);
                     student.setUsername(username);
                     student.setPassword(password);
                     Integer id = studentService.addStudent(student);

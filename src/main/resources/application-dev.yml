@@ -5,11 +5,3 @@ spring:
     username: root
     url: jdbc:mysql://47.98.119.175:3306/guohe?characterEncoding=utf8&useSSL=true&serverTimezone=UTC
 
-#reids
-redis:
-  host: 47.98.119.175
-  port: 6379
-  max-idle: 5
-  max-total: 10
-  max-wait-millis: 3000
-

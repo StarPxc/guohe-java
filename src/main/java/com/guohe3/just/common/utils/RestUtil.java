@@ -19,7 +19,7 @@ public class RestUtil {
         ApiResult apiResult = new ApiResult();
         apiResult.setCode(200);
         apiResult.setMsg(msg);
-        apiResult.setData(data);
+        apiResult.setInfo(data);
         return apiResult;
     }
 

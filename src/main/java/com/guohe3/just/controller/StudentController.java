@@ -17,15 +17,29 @@ import java.io.IOException;
  */
 @Api(value = "学生接口", description = "学生接口")
 @RestController
-@RequestMapping("student")
+@RequestMapping("api/student")
 public class StudentController {
     @Autowired
     private StudentService studentService;
 
-    @GetMapping("getScoreAll")
-    public ApiResult getScoreAll(Authentication authentication) throws IOException {
-        GuoHeUserDetailsImpl userDetails = (GuoHeUserDetailsImpl) authentication.getPrincipal();
-        return RestUtil.success("查询成功", studentService.getScoreAll(userDetails.getUsername(), userDetails.getPassword()));
+    @PostMapping("getScoreAll")
+    public ApiResult getScoreAll(@RequestParam String username, @RequestParam String password) throws IOException {
+        return RestUtil.success("查询成功", studentService.getScoreAll(username, password));
     }
+
+    @PostMapping("getSchoolTimetable")
+    public ApiResult getSchoolTimetable(@RequestParam String username, @RequestParam String password, @RequestParam(required = false) String semester) throws IOException {
+        if (semester == null) {
+            semester = "2017-2018-2";
+        }
+        return RestUtil.success("查询成功", studentService.getSchoolTimetable(username, password, semester));
+    }
+
+    @PostMapping("getJidian")
+    public ApiResult getJidian(@RequestParam String username, @RequestParam String password ) throws IOException {
+        return RestUtil.success("查询成功", studentService.getJidian(username, password));
+    }
+
+
 
 }

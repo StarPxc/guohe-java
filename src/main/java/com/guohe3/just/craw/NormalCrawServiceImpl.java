@@ -1,25 +1,18 @@
 package com.guohe3.just.craw;
 
-import com.alibaba.fastjson.JSONObject;
-import com.guohe3.just.DO.Student;
 import com.guohe3.just.common.constants.Constants;
 import com.guohe3.just.common.enums.ResultEnum;
 import com.guohe3.just.common.execption.CustomException;
-import com.guohe3.just.common.utils.ClientUtil;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import org.apache.commons.lang3.StringUtils;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-
-import java.io.File;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +23,7 @@ import java.util.concurrent.TimeUnit;
  * @date 2018/6/4  22:17
  */
 @Service
+@Slf4j
 public class NormalCrawServiceImpl implements CrawService {
 
     private OkHttpClient client = new OkHttpClient.Builder()
@@ -58,7 +52,6 @@ public class NormalCrawServiceImpl implements CrawService {
         if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
             throw new CustomException(ResultEnum.OBJECT_NULL_ERROR);
         }
-
         FormBody.Builder params = new FormBody.Builder();
 
         params.add("USERNAME", username);
@@ -66,7 +59,7 @@ public class NormalCrawServiceImpl implements CrawService {
 
         Request request = new Request.Builder()
                 .post(params.build())
-                .url(Constants.LOGIN_TO_JWGL_NORMAL)
+                .url(Constants.LOGIN_TO_JWGL_URL)
                 .build();
         try {
             Response response = client.newCall(request).execute();
@@ -75,8 +68,10 @@ public class NormalCrawServiceImpl implements CrawService {
                 String result = response.body().string();
                 //login success
                 if (result.contains("我的桌面")) {
+                    log.info("登录成功，用户名：{}，密码：{}，时间：{}", username, password, LocalDateTime.now().toString());
                     return client;
                 } else {
+                    log.error("登录失败，用户名：{}，密码：{}，时间：{}", username, password, LocalDateTime.now().toString());
                     throw new CustomException(ResultEnum.JWC_ACCOUNT_ERROR);
                 }
             }
@@ -90,7 +85,7 @@ public class NormalCrawServiceImpl implements CrawService {
     }
 
     @Override
-    public String getScoreHtml(OkHttpClient client, String url) throws IOException {
+    public String getSourceHtml(OkHttpClient client, String url) throws IOException {
         Request request = new Request.Builder()
                 .url(url)
                 .build();
@@ -102,27 +97,6 @@ public class NormalCrawServiceImpl implements CrawService {
             throw new CustomException(ResultEnum.REQUEST_ERROR);
         }
 
-    }
-
-    @Override
-    public Student getStudentInfo(String html) {
-
-        Document doc = Jsoup.parse(html);
-        Elements trs = doc.getElementById("xjkpTable").select("tr");
-        String name = StringUtils.trim(trs.get(3).select("td").get(1).text());
-        String birthday = StringUtils.trim(trs.get(4).select("td").get(1).text());
-        String academy = trs.get(2).select("td").get(0).text().split("：")[1];
-        String major = trs.get(2).select("td").get(1).text().split("：")[1];
-        String classNum = trs.get(2).select("td").get(3).text().split("：")[1];
-        Student student = new Student();
-        student.setName(name);
-        student.setBirthday(birthday);
-        student.setMajor(major);
-        student.setAcademy(academy);
-        student.setClassNum(classNum);
-
-
-        return student;
     }
 
 

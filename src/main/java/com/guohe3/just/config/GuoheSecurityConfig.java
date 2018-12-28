@@ -37,17 +37,18 @@ public class GuoheSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.addFilterBefore(new LoginJUSTFilter(userService, crawService, studentService), UsernamePasswordAuthenticationFilter.class)
-
+        http
+                //.addFilterBefore(new LoginJUSTFilter(userService, crawService, studentService), UsernamePasswordAuthenticationFilter.class)
                 .csrf().disable()
                 .formLogin()
                 .loginPage("/authentication/require")
                 .loginProcessingUrl("/loginProcess")
-                .successHandler(guoHeAuthenticationSuccessHandler)
-                .failureHandler(guoHeAuthenticationFailureHandler)
+                //.successHandler(guoHeAuthenticationSuccessHandler)
+                //.failureHandler(guoHeAuthenticationFailureHandler)
                 .and()
                 .authorizeRequests()
-                .antMatchers("loginProcess", "/authentication/require", "/loginProcess", "/login.html")
+                //暂时不使用
+                .antMatchers("loginProcess", "/authentication/require", "/loginProcess", "/login.html","/**")
                 .permitAll()
                 .anyRequest()
                 .authenticated();

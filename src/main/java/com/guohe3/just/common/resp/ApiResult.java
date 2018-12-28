@@ -14,6 +14,6 @@ import lombok.Data;
 public class ApiResult<T> {
     private int code;
     private String msg;
-    private T data;
+    private T info;
 }
 

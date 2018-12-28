@@ -20,15 +20,8 @@ public interface CrawService {
      * @return html页面字符串
      * @throws IOException
      */
-    String getScoreHtml(OkHttpClient client, String url) throws IOException;
+    String getSourceHtml(OkHttpClient client, String url) throws IOException;
 
-    /**
-     * 获取学生信息
-     *
-     * @param html html字符串
-     * @return Student
-     */
-    Student getStudentInfo(String html);
 
     /**
      * 登录教务处
