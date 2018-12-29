@@ -40,6 +40,7 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentMapper mapper;
 
+
     @Override
     public List<Score> getScoreAll(String username, String password) throws IOException {
 
@@ -52,7 +53,7 @@ public class StudentServiceImpl implements StudentService {
         Document doc = Jsoup.parse(result);
         Element table = doc.getElementById("dataList");
         if (table == null) {
-            log.info("页面数据：{}",result);
+            log.info("用户 {} 未评价",username);
             throw new CustomException(ResultEnum.NOT_EVALUATED);
         }
         Elements trs = table.select("tr");
@@ -77,11 +78,6 @@ public class StudentServiceImpl implements StudentService {
                 }).collect(Collectors.toList());
     }
 
-    @Override
-    public Integer addStudent(Student student) {
-        mapper.insertSelective(student);
-        return student.getId();
-    }
 
     @Override
     public Student getStudentInfo(String username, String password) throws IOException {
@@ -103,6 +99,11 @@ public class StudentServiceImpl implements StudentService {
         student.setMajor(major);
         student.setAcademy(academy);
         student.setClassNum(classNum);
+        student.setUsername(username);
+        student.setPassword(password);
+
+        mapper.insert(student);
+        log.info("保存用户数据：{}",student);
 
         return student;
     }
@@ -184,6 +185,17 @@ public class StudentServiceImpl implements StudentService {
         }
         group(result,scoreList,twoSemesterlist);
         return result;
+    }
+
+    @Override
+    public Student login(String username, String password) throws IOException {
+        Student student=mapper.selectByUsernameAndPassword(username,password);
+
+        if (student!=null){
+            return student;
+        }else {
+            return getStudentInfo(username,password);
+        }
     }
 
     /**

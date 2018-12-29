@@ -20,7 +20,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-@ConditionalOnProperty(prefix = "hr", name = "swagger-open", havingValue = "true")
 public class SwaggerConfig {
 
     @Bean
@@ -31,8 +30,7 @@ public class SwaggerConfig {
                 //这里采用包含注解的方式来确定要显示的接口
                 //.apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 //这里采用包扫描的方式来确定要显示的接口
-                .apis(RequestHandlerSelectors.basePackage("com.guohe3.just"))
-
+                .apis(RequestHandlerSelectors.basePackage("com.guohe3.just.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
@@ -41,7 +39,7 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("果核")
                 .description("果核Api文档")
-                .contact("微信：18852897377")
+                .contact("渔樵 微信：18852897377")
                 .version("1.0")
                 .build();
     }

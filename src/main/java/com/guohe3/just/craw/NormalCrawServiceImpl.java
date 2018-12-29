@@ -48,7 +48,7 @@ public class NormalCrawServiceImpl implements CrawService {
 
     @Override
     public OkHttpClient login(String username, String password) throws IOException {
-
+        OkHttpClient client = getClient();
         if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
             throw new CustomException(ResultEnum.OBJECT_NULL_ERROR);
         }
@@ -74,14 +74,37 @@ public class NormalCrawServiceImpl implements CrawService {
                     log.error("登录失败，用户名：{}，密码：{}，时间：{}", username, password, LocalDateTime.now().toString());
                     throw new CustomException(ResultEnum.JWC_ACCOUNT_ERROR);
                 }
+            } else {
+                log.info("登录失败：{}", response.message());
+                throw new CustomException(ResultEnum.LOGIN_FAIL);
             }
         } catch (SocketTimeoutException | UnknownHostException e) {
+            log.info("教务处异常：{}", e);
             return null;
         }
 
-        return null;
 
+    }
 
+    private OkHttpClient getClient() {
+        return new OkHttpClient.Builder()
+                .connectTimeout(10, TimeUnit.SECONDS)
+                //管理cookie
+                .cookieJar(new CookieJar() {
+                    private final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
+
+                    @Override
+                    public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+                        cookieStore.put(url.host(), cookies);
+                    }
+
+                    @Override
+                    public List<Cookie> loadForRequest(HttpUrl url) {
+                        List<Cookie> cookies = cookieStore.get(url.host());
+                        return cookies != null ? cookies : new ArrayList<>();
+                    }
+                })
+                .build();
     }
 
     @Override

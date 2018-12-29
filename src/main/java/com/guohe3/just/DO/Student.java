@@ -1,13 +1,26 @@
 package com.guohe3.just.DO;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 
 
+/**
+ * @author pxc
+ */
 @Data
-public class Student {
+@EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
+public class Student implements Serializable {
+    private static final long serialVersionUID = 1L;
     /**
      * 自增id
      */
+    @TableId(type = IdType.AUTO)
     private Integer id;
     /**
      * 用户名

@@ -1,6 +1,5 @@
 package com.guohe3.just.service;
 
-import com.guohe3.just.DO.Course;
 import com.guohe3.just.DO.Score;
 import com.guohe3.just.DO.Student;
 
@@ -21,13 +20,6 @@ public interface StudentService {
      * @throws IOException
      */
     List<Score> getScoreAll(String username, String password) throws IOException;
-
-    /**
-     * 添加学生
-     * @param student Student
-     * @return Integer
-     */
-    Integer addStudent(Student student);
 
     /**
      * 获取学生信息
@@ -55,4 +47,13 @@ public interface StudentService {
      * @return  list
      */
     List<Map<String, String>>  getJidian(String username, String password) throws IOException;
+
+    /**
+     * 登录
+     * @param username 用户名
+     * @param password 密码
+     * @return Student
+     * @throws IOException
+     */
+    Student login(String username, String password) throws IOException;
 }

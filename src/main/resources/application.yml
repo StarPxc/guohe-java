@@ -21,7 +21,8 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.jdbc.Driver
-mybatis:
+
+mybatis-plus:
   mapper-locations: classpath:com/guohe3/just/mapper/**.xml
   type-aliases-package: classpath:com.guohe3.just.DO
 
@@ -32,8 +33,6 @@ pagehelper:
   reasonable: true
   support-methods-arguments: true
   params: count=countSql
-
-
 
 logging:
   level:
